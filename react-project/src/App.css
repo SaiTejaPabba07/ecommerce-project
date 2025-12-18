@@ -1,0 +1,16 @@
+
+
+.app-container {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  /* font-family: Arial; */
+
+}
+
+
+
