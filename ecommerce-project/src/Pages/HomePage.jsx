@@ -3,16 +3,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import "./HomePage.css";
-export function HomePage() {
+export function HomePage({ cartItems }) {
   const [products, setProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:3000/api/products").then((response) => {
       setProducts(response.data);
     });
-    axios.get("http://localhost:3000/api/cart-items").then((response) => {
-      setCartItems(response.data);
-    });
+    // axios.get("http://localhost:3000/api/cart-items").then((response) => {
+    //   setCartItems(response.data);
+    // });
   }, []);
   return (
     <>
