@@ -13,7 +13,7 @@ function App() {
     axios.get('/api/cart-items?expand=product')
       .then((response) => setCartItems(response.data));
       console.log(cartItems);
-  }, [cartItems]);
+  }, []);
   
   return (
     <Routes>
