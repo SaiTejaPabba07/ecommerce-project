@@ -10,9 +10,19 @@ import './App.css'
 function App() {
   const [cartItems, setCartItems] = useState([]);
   useEffect(() => {
-    axios.get('/api/cart-items?expand=product')
-      .then((response) => setCartItems(response.data));
-      console.log(cartItems);
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get('/api/cart-items?expand=product');
+        setCartItems(response.data);
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+      }
+    };
+    fetchCartItems();
+    //    
+    // axios.get('/api/cart-items?expand=product')
+    //   .then((response) => setCartItems(response.data));
+    //   console.log(cartItems);
   }, []);
   
   return (

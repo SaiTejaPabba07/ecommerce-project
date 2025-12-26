@@ -7,12 +7,17 @@ import { ProductsGrid } from "./ProductsGrid";
 export function HomePage({ cartItems }) {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3000/api/products").then((response) => {
-      setProducts(response.data);
-    });
-    // axios.get("http://localhost:3000/api/cart-items").then((response) => {
-    //   setCartItems(response.data);
-    // });
+    const getHomePageData = async () => {
+      try {
+        const productsResponse = await axios.get("/api/products");
+        setProducts(productsResponse.data);
+      } catch (error) {
+        console.error("Error fetching home page data:", error);
+      } finally {
+        // Any cleanup or final steps can go here
+      } 
+    };
+    getHomePageData();
   }, []);
   return (
     <>

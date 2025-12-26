@@ -7,9 +7,15 @@ import { OrdersGrid } from "./OrdersGrid";
 export function OrdersPage({ cartItems }) {
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    axios
-      .get("/api/orders?expand=products")
-      .then((response) => setOrders(response.data));
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("/api/orders?expand=products");
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+    fetchOrders();
   }, []);
   return (
     <>
@@ -44,7 +50,7 @@ export function OrdersPage({ cartItems }) {
         </div>
       </div> */}
 
-     <OrdersGrid orders={orders} />
+      <OrdersGrid orders={orders} />
     </>
   );
 }

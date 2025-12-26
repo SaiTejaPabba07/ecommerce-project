@@ -26,13 +26,29 @@ export function CheckoutPage({ cartItems }) {
   const [paymentSummary, setPaymentSummary] = useState(null);
   useEffect(() => {
     console.log("mounted");
-    axios
-      .get("/api/delivery-options?expand=estimatedDeliveryTime")
-      .then((response) => setDeliveryOptions(response.data));
-    console.log(deliveryOptions);
-    axios
-      .get("/api/payment-summary")
-      .then((response) => setPaymentSummary(response.data));
+    const fetchCheckoutData = async () => {
+      try {
+        const deliveryOptionsResponse = await axios.get(
+          "/api/delivery-options?expand=estimatedDeliveryTime"
+        );
+        setDeliveryOptions(deliveryOptionsResponse.data); 
+        const paymentSummaryResponse = await axios.get(
+          "/api/payment-summary"
+        );
+        setPaymentSummary(paymentSummaryResponse.data);
+      } catch (error) {
+        console.error("Error fetching checkout data:", error);
+      } finally {
+        // Any cleanup or final steps can go here
+      } };
+    fetchCheckoutData();
+    // axios
+    //   .get("/api/delivery-options?expand=estimatedDeliveryTime")
+    //   .then((response) => setDeliveryOptions(response.data));
+    // console.log(deliveryOptions);
+    // axios
+    //   .get("/api/payment-summary")
+    //   .then((response) => setPaymentSummary(response.data));
     return () => {
       console.log("unmounted");
     };
